@@ -5,7 +5,7 @@ import {
   ClerkProvider,
   ClerkLoaded,
   ClerkLoading,
-
+  SignInButton
   
 } from '@clerk/nextjs'
 const geistSans = Geist({
@@ -34,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SignInButton></SignInButton>
         {children}
       </body>
     </html>
