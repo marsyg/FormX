@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Header from "./_components/Header";
 import "./globals.css";
 import {
   ClerkProvider,
@@ -30,10 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-       <html lang="en">
+       <html lang="en" data-theme= "cupcake">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+       <Header></Header>
         <SignInButton></SignInButton>
         {children}
       </body>

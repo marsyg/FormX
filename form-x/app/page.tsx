@@ -1,7 +1,6 @@
-
-
+import Hero from "./_components/Hero";
 export default function Home() {
   return (
-   <div>Home Page</div>
+   <div><Hero></Hero></div>
   );
 }
