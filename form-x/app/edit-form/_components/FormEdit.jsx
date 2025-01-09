@@ -75,8 +75,7 @@ function FormEdit({ defaultValue, onUpdate, deleteField }) {
                             onUpdate({
                                 label: label,
                                 placeholder: placeholder,
-                                fieldType: fieldType,
-                                options: options,
+                               
                             })
                         }
                     >

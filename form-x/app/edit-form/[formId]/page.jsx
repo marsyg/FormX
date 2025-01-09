@@ -30,8 +30,9 @@ export default function EditForm({ params }) {
     }
   }, [updateTrigger])
   const onFieldUpdate = (value, index) => {
-    jsonForm.formFields[index].formLabel = value.formLabel
-    jsonForm.formFields[index].placeholderName = value.placeholderName
+    console.log(value.label,"Field update value from edit-form page")
+    jsonForm.formFields[index].formLabel = value.label
+    jsonForm.formFields[index].placeholderName = value.placeholder
     setUpdateTrigger(Date.now())
   }
 
