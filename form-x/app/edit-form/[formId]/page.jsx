@@ -7,6 +7,7 @@ import { and, eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import FormUi from '../_components/FormUI'
+import Controller from '../_components/Controller'
 
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
@@ -16,7 +17,9 @@ export default function EditForm({ params }) {
   const [record, setRecord] = useState([])
   const [jsonForm, setJsonForm] = useState('')
   const [updateTrigger, setUpdateTrigger] = useState()
+  const [selectedTheme ,setSelectedTheme] = useState('light')
   const [loading, setLoading] = useState(true);
+ 
   useEffect(() => {
     if (user) {
       GetFormData();
@@ -90,10 +93,11 @@ export default function EditForm({ params }) {
           Back
         </h2>
         <div className="flex w-full">
-          <div className="card bg-base-300 rounded-box grid w-80 h-screen place-items-center mr-4 mb-4">content</div>
+          <div className="card bg-base-300 rounded-box grid w-80 h-screen place-items-center mr-4 mb-4"><Controller setSelectedTheme={(value)=>setSelectedTheme(value)} /></div>
           <div className="card bg-base-300 rounded-box flex h-screen w-full place-items-center">
             <FormUi
               loading={loading}
+              selectedTheme={selectedTheme}
               onFieldUpdate={onFieldUpdate}
               jsonForm={jsonForm}
               deleteField={(index) => deleteField(index)}

@@ -9,12 +9,12 @@ import {
 import Themes from '@/app/_data/Themes'
   
 
-function Controller(selectedTheme,selectedBackground) {
+function Controller({setSelectedTheme}) {
   return (
     <div>
         
       <h2 className='my-1'>Select Themes</h2>
-      <Select onValueChange={(value)=>selectedTheme(value)}>
+      <Select onValueChange={(value)=>setSelectedTheme(value)}>
   <SelectTrigger className="w-full">
     <SelectValue placeholder="Theme" />
   </SelectTrigger>
@@ -25,7 +25,7 @@ function Controller(selectedTheme,selectedBackground) {
     <div className='flex'>
         <div className='h-5 w-5 rounded-l-md'
         style={{backgroundColor:theme.primary}}></div>
-        
+
         <div className='h-5 w-5'
         style={{backgroundColor:theme.secondary}}></div>
         <div className='h-5 w-5'
@@ -41,7 +41,7 @@ function Controller(selectedTheme,selectedBackground) {
   </SelectContent>
 </Select>
 <h2 className='mt-8 my-1'> Background </h2>
-<div className='grid grid-cols-3 gap-5'>
+{/* <div className='grid grid-cols-3 gap-5'>
   {GradientBg.map((bg, index) => (
     <div 
     key={index}
@@ -52,7 +52,7 @@ function Controller(selectedTheme,selectedBackground) {
     {index==0 && 'None'}
     </div>
   ))}
-</div>
+</div> */}
 
     </div>
   )

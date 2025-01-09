@@ -53,7 +53,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme }) {
                                             {field.formLabel}
                                         </label>
                                         <Select>
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger className="w-full bg-transparent">
                                                 <SelectValue placeholder={field.placeholderName} />
                                             </SelectTrigger>
                                             <SelectContent>
