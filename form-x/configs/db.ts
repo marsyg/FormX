@@ -10,4 +10,5 @@ if (!process.env.NEXT_PUBLIC_DATABASE_URL_CONFIG) {
 }
 const sql = neon(process.env.NEXT_PUBLIC_DATABASE_URL_CONFIG);
 
-export const db = drizzle(sql, { schema });
+ const db = drizzle(sql, { schema });
+ export default db
