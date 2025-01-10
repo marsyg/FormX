@@ -15,10 +15,11 @@ const PreviewForm = () => {
     const [jsonForm, setJsonForm] = useState('')
     const params = useParams()
     useEffect(()=>{
-  if(params){
+  if(params&&user){
+    console.log('get form data called')
     GetFormData()
   }
-    },[params])
+    },[params,user])
 
    
     const GetFormData = async () => {
@@ -32,10 +33,15 @@ const PreviewForm = () => {
           )
         );
         setRecord(result[0])
-        console.log(result)
+        if (!result || result.length === 0) {
+            console.warn("No records found for the given query.");
+            setJsonForm(null); // Set to null or handle accordingly
+            return;
+          }
+        console.log(result[0]?.jsonform)
 
       
-        const parseResult = JSON.parse(result[0].jsonform)
+        const parseResult = JSON.parse(result[0]?.jsonform)
       
         if (parseResult) {
            

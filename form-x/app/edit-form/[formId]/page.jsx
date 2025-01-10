@@ -20,7 +20,7 @@ export default function EditForm({ params }) {
   const [updateTrigger, setUpdateTrigger] = useState()
   const [selectedTheme ,setSelectedTheme] = useState('light')
   const [loading, setLoading] = useState(true);
- 
+ const editable= true
   useEffect(() => {
     if (user) {
       GetFormData();
@@ -118,6 +118,7 @@ Preview</Button></Link>
               onFieldUpdate={onFieldUpdate}
               jsonForm={jsonForm}
               deleteField={(index) => deleteField(index)}
+              editable={editable}
             ></FormUi></div>
         </div>
       </div>
