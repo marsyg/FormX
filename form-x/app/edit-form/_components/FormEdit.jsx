@@ -27,10 +27,10 @@ function FormEdit({ defaultValue, onUpdate, deleteField }) {
     const [options, setOptions] = useState(defaultValue.options || []);
 
     return (
-        <div className="flex gap-2">
+        <div className="flex my-2 justify-between gap-2">
             <Popover>
                 <PopoverTrigger>
-                    <Edit className="h-5 w-5 text-gray-500" />
+                    <Edit className="h-5 w-5  text-gray-500" />
                 </PopoverTrigger>
                 <PopoverContent>
                     <h2 className="font-bold mb-2">Edit Field</h2>

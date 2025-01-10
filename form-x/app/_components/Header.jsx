@@ -4,9 +4,15 @@ import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 const Header = () => {
     const { user, isSignedIn } = useUser()
-    return (
+    const path = usePathname()
+   useEffect(()=>{
+    console.log(path)
+   },[])
+    return !path.includes('Form')&&(
         <div className='p-5 border shadow-sm'>
             <div className='flex items-center justify-between'>
                 <Image src={'/logo.svg'} width={50} height={50} alt='image' />

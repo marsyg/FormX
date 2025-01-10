@@ -16,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme }) {
+function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}) {
     if (jsonForm !== "") {
         console.log("after loaded ----", {
             jsonForm,
@@ -96,7 +96,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme }) {
                                         {field.options.map((item, optionIndex) => (
                                             <div
                                                 key={optionIndex}
-                                                className="flex gap-2 items-center"
+                                                className="flex gap-2 my-2 items-center"
                                             >
                                                 <Checkbox />
                                                 <h2>{item.label}</h2>
@@ -136,13 +136,16 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme }) {
                                         />
                                     </div>
                                 ) : null}
+                               {
+                                editable&&
                                 <div>
-                                    <FormEdit
-                                        defaultValue={field}
-                                        deleteField={() => deleteField(index)}
-                                        onUpdate={(value) => onFieldUpdate(value, index)}
-                                    ></FormEdit>
-                                </div>
+                                <FormEdit
+                                    defaultValue={field}
+                                    deleteField={() => deleteField(index)}
+                                    onUpdate={(value) => onFieldUpdate(value, index)}
+                                ></FormEdit>
+                            </div>
+                               }
                             </div>
                         ))}
                     </div>

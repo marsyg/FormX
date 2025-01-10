@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import FormUi from '../_components/FormUI'
 import Controller from '../_components/Controller'
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
@@ -88,10 +89,26 @@ export default function EditForm({ params }) {
   return (
     <div className="flex w-full">
       <div className="flex flex-col w-full">
-        <h2 className="flex w-full gap-2 items-center my-5 cursor-pointer">
-          <ArrowLeft className="hover:scale-50" />
+       <div className="flex flex-row justify-between">
+       <h2 className="flex w-full gap-2 items-center hover:scale-50 my-5 cursor-pointer">
+          <ArrowLeft className="" />
           Back
         </h2>
+        <div className="flex mt-3  flex-row">
+        <Button className="mx-2"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+</svg> 
+Share</Button>
+    <Link href={'/Form/'+ record}>
+     <Button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+</svg>
+Preview</Button></Link>
+        </div>
+
+       </div>
+        
         <div className="flex w-full">
           <div className="card bg-base-300 rounded-box grid w-80 h-screen place-items-center mr-4 mb-4"><Controller setSelectedTheme={(value)=>setSelectedTheme(value)} /></div>
           <div className="card bg-base-300 rounded-box flex h-screen w-full place-items-center">
