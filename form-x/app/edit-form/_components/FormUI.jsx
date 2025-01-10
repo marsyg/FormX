@@ -35,7 +35,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
         e.preventDefault();
         console.log(formData)
       }
-      console.log(jsonForm.formFields[6].options, "form fields ---");
+      
     if (jsonForm !== "") {
         console.log("after loaded ----", {
             jsonForm,
