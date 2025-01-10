@@ -4,9 +4,7 @@ import Header from "./_components/Header";
 import "./globals.css";
 import {
   ClerkProvider,
-  ClerkLoaded,
-  ClerkLoading,
-  SignInButton
+  
   
 } from '@clerk/nextjs'
 const geistSans = Geist({

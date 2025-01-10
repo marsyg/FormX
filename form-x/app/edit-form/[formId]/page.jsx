@@ -22,8 +22,11 @@ export default function EditForm({ params }) {
   const [updateTrigger, setUpdateTrigger] = useState()
   const [selectedTheme, setSelectedTheme] = useState('light')
   const [loading, setLoading] = useState(true);
+ 
+
+
   const handleGoBack = () => {
-    router.back(); // Navigates to the previous page
+    router.back(); 
   };
   const editable = true
   useEffect(() => {

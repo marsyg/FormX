@@ -8,30 +8,50 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import FormEdit from "./FormEdit";
+import { useState } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}) {
+     const [formData,setFormData] = useState(); 
+    
+      const handleFormInputChange = (e)=>{
+        const {name,value} =e.target 
+        setFormData({
+          ...FormData,
+          [name]:value
+        })
+    
+      }
+      console.log(jsonForm)
+
+      const FormSubmit =(e)=>{
+        e.preventDefault();
+        console.log(formData)
+      }
+      console.log(jsonForm.formFields[6].options, "form fields ---");
     if (jsonForm !== "") {
         console.log("after loaded ----", {
             jsonForm,
             formTitle: jsonForm?.formTitle,
         });
-        console.log(jsonForm.formFields, "form fields ---");
+       
     }
 
     return (
         <ScrollArea>
-            <div
+            <form
                 className={`border p-5 md:w-[600px] rounded-lg`}
                 data-theme={selectedTheme}
-            >
-                {/* Show Loading text if jsonForm is not available */}
+                onSubmit={FormSubmit}
+            > 
+                
                 {!jsonForm || Object.keys(jsonForm).length === 0 ? (
                     <div>Loading...</div>
                 ) : (
@@ -43,10 +63,10 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                             {jsonForm?.formSubheading}
                         </h2>
 
-                        {/* Mapping through formFields */}
+                      
                         {jsonForm?.formFields.map((field, index) => (
                             <div key={index} className="my-3">
-                                {/* Render Select field */}
+                                
                                 {field.fieldType === "select" && field.options ? (
                                     <div>
                                         <label className="text-xs text-gray-500">
@@ -57,7 +77,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                                                 <SelectValue placeholder={field.placeholderName} />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {field.options.map((item, optionIndex) => (
+                                                {field?.options.map((item, optionIndex) => (
                                                     <SelectItem key={optionIndex} value={item.value}>
                                                         {item.label}
                                                     </SelectItem>
@@ -67,7 +87,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                                     </div>
                                 ) : null}
 
-                                {/* Render Radio field */}
+                              
                                 {field.fieldType === "radio" && field.options ? (
                                     <div>
                                         <label className="text-xs text-gray-500">
@@ -87,7 +107,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                                     </div>
                                 ) : null}
 
-                                {/* Render Checkbox field */}
+                             
                                 {field.fieldType === "checkbox" && field.options ? (
                                     <div>
                                         <label className="text-xs text-gray-500">
@@ -105,7 +125,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                                     </div>
                                 ) : null}
 
-                                {/* Render Text Inputs (text, email, password, etc.) */}
+                               
                                 {["text", "email", "password", "tel"].includes(
                                     field.fieldType
                                 ) ? (
@@ -122,7 +142,7 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                                     </div>
                                 ) : null}
 
-                                {/* Render Textarea Input */}
+                               
                                 {field.fieldType === "textarea" ? (
                                     <div>
                                         <label className="text-xs text-gray-500">
@@ -148,9 +168,12 @@ function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}
                                }
                             </div>
                         ))}
+                       <div className="flex justify-end  mt-4">
+                       <Button type="submit" className="justify-end  ">Submit</Button>
+                       </div>
                     </div>
                 )}
-            </div>
+            </form>
         </ScrollArea>
     );
 }
