@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import SideNavBar from "./dashboard/_components/SideNavBar.jsx";
 import Header from "./_components/Header";
 import "./globals.css";
-import {
-  ClerkProvider,
-  
-  
-} from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,16 +27,21 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-       <html lang="en" data-theme= "cupcake">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-       <Header></Header>
-       
-        {children}
-      </body>
-    </html>
+      <html lang="en" data-theme="cupcake">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <SidebarProvider>
+            <SideNavBar></SideNavBar>
+
+            <div className="flex flex-col w-full">
+              <Header></Header>
+
+              {children}
+            </div>
+          </SidebarProvider>
+        </body>
+      </html>
     </ClerkProvider>
-   
   );
 }

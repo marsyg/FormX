@@ -1,181 +1,192 @@
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { use } from "react";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import FormEdit from "./FormEdit";
-import { useState } from "react";
-
+import { useState, useRef } from "react";
+import { useParams } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
-function FormUi({ jsonForm, onFieldUpdate, deleteField, selectedTheme ,editable}) {
-     const [formData,setFormData] = useState(); 
-    
-      const handleFormInputChange = (e)=>{
-        const {name,value} =e.target 
-        setFormData({
-          ...FormData,
-          [name]:value
-        })
-    
-      }
-      console.log(jsonForm)
+function FormUi({
+  jsonForm,
+  onFieldUpdate,
+  deleteField,
+  selectedTheme,
+  editable,
+}) {
+  const params = useParams();
+  const [formData, setFormData] = useState({});
+  let formRef = useRef();
 
-      const FormSubmit =(e)=>{
-        e.preventDefault();
-        console.log(formData)
-      }
-      
-    if (jsonForm !== "") {
-        console.log("after loaded ----", {
-            jsonForm,
-            formTitle: jsonForm?.formTitle,
-        });
-       
-    }
+  const handleFormInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
+  const handleFormSelectChange = (name, value) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const FormSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // Implement form submission logic here
+    formRef.current.reset();
+  };
+
+  if (!jsonForm || Object.keys(jsonForm).length === 0) {
     return (
-        <ScrollArea>
-            <form
-                className={`border p-5 md:w-[600px] rounded-lg`}
-                data-theme={selectedTheme}
-                onSubmit={FormSubmit}
-            > 
-                
-                {!jsonForm || Object.keys(jsonForm).length === 0 ? (
-                    <div>Loading...</div>
-                ) : (
-                    <div className="flex flex-col">
-                        <h2 className="font-bold text-center text-2xl">
-                            {jsonForm?.formTitle}
-                        </h2>
-                        <h2 className="text-sm text-gray-400 text-center">
-                            {jsonForm?.formSubheading}
-                        </h2>
-
-                      
-                        {jsonForm?.formFields.map((field, index) => (
-                            <div key={index} className="my-3">
-                                
-                                {field.fieldType === "select" && field.options ? (
-                                    <div>
-                                        <label className="text-xs text-gray-500">
-                                            {field.formLabel}
-                                        </label>
-                                        <Select>
-                                            <SelectTrigger className="w-full bg-transparent">
-                                                <SelectValue placeholder={field.placeholderName} />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {field?.options.map((item, optionIndex) => (
-                                                    <SelectItem key={optionIndex} value={item.value}>
-                                                        {item.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                ) : null}
-
-                              
-                                {field.fieldType === "radio" && field.options ? (
-                                    <div>
-                                        <label className="text-xs text-gray-500">
-                                            {field.formLabel}
-                                        </label>
-                                        <RadioGroup defaultValue={field.options[0].value}>
-                                            {field.options.map((item, optionIndex) => (
-                                                <div
-                                                    key={optionIndex}
-                                                    className="flex items-center space-x-2"
-                                                >
-                                                    <RadioGroupItem value={item.value} id={item.value} />
-                                                    <Label htmlFor={item.value}>{item.label}</Label>
-                                                </div>
-                                            ))}
-                                        </RadioGroup>
-                                    </div>
-                                ) : null}
-
-                             
-                                {field.fieldType === "checkbox" && field.options ? (
-                                    <div>
-                                        <label className="text-xs text-gray-500">
-                                            {field.formLabel}
-                                        </label>
-                                        {field.options.map((item, optionIndex) => (
-                                            <div
-                                                key={optionIndex}
-                                                className="flex gap-2 my-2 items-center"
-                                            >
-                                                <Checkbox />
-                                                <h2>{item.label}</h2>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : null}
-
-                               
-                                {["text", "email", "password", "tel"].includes(
-                                    field.fieldType
-                                ) ? (
-                                    <div>
-                                        <label className="text-xs text-gray-500">
-                                            {field.formLabel}
-                                        </label>
-                                        <Input
-                                            type={field.fieldType}
-                                            placeholder={field.placeholderName}
-                                            name={field.formName}
-                                            required={field.fieldRequired}
-                                        />
-                                    </div>
-                                ) : null}
-
-                               
-                                {field.fieldType === "textarea" ? (
-                                    <div>
-                                        <label className="text-xs text-gray-500">
-                                            {field.formLabel}
-                                        </label>
-                                        <textarea
-                                            placeholder={field.placeholderName}
-                                            name={field.formName}
-                                            required={field.fieldRequired}
-                                            className="w-full p-2 border border-gray-300 rounded-md"
-                                        />
-                                    </div>
-                                ) : null}
-                               {
-                                editable&&
-                                <div>
-                                <FormEdit
-                                    defaultValue={field}
-                                    deleteField={() => deleteField(index)}
-                                    onUpdate={(value) => onFieldUpdate(value, index)}
-                                ></FormEdit>
-                            </div>
-                               }
-                            </div>
-                        ))}
-                       <div className="flex justify-end  mt-4">
-                       <Button type="submit" className="justify-end  ">Submit</Button>
-                       </div>
-                    </div>
-                )}
-            </form>
-        </ScrollArea>
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
     );
+  }
+
+  return (
+    <ScrollArea className="h-screen">
+      <Card
+        className="w-full max-w-2xl mx-auto my-8"
+        data-theme={selectedTheme}
+      >
+        <form ref={formRef} onSubmit={FormSubmit}>
+          <CardHeader>
+            <CardTitle className="text-3xl font-bold text-center">
+              {jsonForm?.formTitle}
+            </CardTitle>
+            <CardDescription className="text-center">
+              {jsonForm?.formSubheading}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {jsonForm?.formFields.map((field, index) => (
+              <div key={index} className="space-y-2">
+                <Label htmlFor={field.formName} className="text-sm font-medium">
+                  {field.formLabel}
+                  {field.fieldRequired && (
+                    <span className="text-red-500 ml-1">*</span>
+                  )}
+                </Label>
+
+                {field.fieldType === "select" && field.options.length > 0 && (
+                  <Select
+                    onValueChange={(v) =>
+                      handleFormSelectChange(field.formName, v)
+                    }
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={field.placeholderName} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {field?.options.map((item, optionIndex) => (
+                        <SelectItem key={optionIndex} value={item}>
+                          {item}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+
+                {field.fieldType === "radio" && field.options.length > 0 && (
+                  <RadioGroup
+                    defaultValue={field.options[0].value}
+                    className="flex flex-col space-y-1"
+                  >
+                    {field.options.map((item, optionIndex) => (
+                      <div
+                        key={optionIndex}
+                        className="flex items-center space-x-2"
+                      >
+                        <RadioGroupItem
+                          value={item.value}
+                          id={`${field.formName}-${item.value}`}
+                        />
+                        <Label htmlFor={`${field.formName}-${item.value}`}>
+                          {item.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                )}
+
+                {field.fieldType === "checkbox" && field.options.length > 0 && (
+                  <div className="space-y-2">
+                    {field.options.map((item, optionIndex) => (
+                      <div
+                        key={optionIndex}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox id={`${field.formName}-${item.value}`} />
+                        <Label htmlFor={`${field.formName}-${item.value}`}>
+                          {item.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {["text", "email", "password", "tel"].includes(
+                  field.fieldType
+                ) && (
+                  <Input
+                    type={field.fieldType}
+                    id={field.formName}
+                    placeholder={field.placeholderName}
+                    name={field.formName}
+                    required={field.fieldRequired}
+                    onChange={handleFormInputChange}
+                  />
+                )}
+
+                {field.fieldType === "textarea" && (
+                  <textarea
+                    id={field.formName}
+                    placeholder={field.placeholderName}
+                    name={field.formName}
+                    required={field.fieldRequired}
+                    className="w-full p-2 border border-input bg-background rounded-md min-h-[100px]"
+                    onChange={handleFormInputChange}
+                  />
+                )}
+
+                {editable && (
+                  <FormEdit
+                    defaultValue={field}
+                    deleteField={() => deleteField(index)}
+                    onUpdate={(value) => onFieldUpdate(value, index)}
+                  />
+                )}
+              </div>
+            ))}
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
+          </CardContent>
+        </form>
+      </Card>
+    </ScrollArea>
+  );
 }
 
 export default FormUi;
