@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -47,9 +47,9 @@ const Header = () => {
             <UserButton />
           </div>
         ) : (
-          <SignInButton>
+          <SignUpButton>
             <Button>Get Started</Button>
-          </SignInButton>
+          </SignUpButton>
         )}
       </div>
     </header>
