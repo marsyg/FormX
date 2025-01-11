@@ -28,7 +28,7 @@ const items = [
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "analytics",
     icon: ChartLine,
   },
   {
@@ -38,7 +38,7 @@ const items = [
   },
   {
     title: "Upgrade",
-    url: "#",
+    url: "upgrade",
     icon: ShieldCheck,
   },
 ];
@@ -56,10 +56,10 @@ export default function SideNavBar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

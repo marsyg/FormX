@@ -22,15 +22,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 function TemplateUI({ jsonForm, selectedTheme }) {
-  
-  
-
   return (
     <ScrollArea className="h-screen">
-      <Card
-        className="w-full max-w-2xl mx-auto my-8 shadow-md rounded-lg"
-        data-theme={forest}
-      >
+      <Card className="w-full max-w-2xl mx-auto my-8 shadow-md rounded-lg">
         <form ref={formRef} onSubmit={handleFormSubmit}>
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold">
