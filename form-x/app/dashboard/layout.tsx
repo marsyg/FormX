@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <SignedIn>
-      <div>{children}</div>
+      <div className="flex">{children}</div>
     </SignedIn>
   );
 }

@@ -32,7 +32,7 @@ const FormList = () => {
   return (
     <>
       <ScrollArea>
-        <div className="flex flex-row">
+        <div className="flex  overflow-x-auto flex-row">
           {formList.map((value, index) => (
             <FormListItem key={index} jsonData={JSON.parse(value.jsonform)} />
           ))}

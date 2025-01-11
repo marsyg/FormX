@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SidebarProvider, } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import SideNavBar from "./dashboard/_components/SideNavBar.jsx";
 import Header from "./_components/Header";
 import "./globals.css";
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" data-theme="cupcake">
+      <html lang="en" data-theme="retro">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >

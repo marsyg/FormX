@@ -4,15 +4,16 @@ import db from "@/configs/db";
 import { JsonForms } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { and, eq } from "drizzle-orm";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
 import FormUi from "../_components/FormUI";
 import Controller from "../_components/Controller";
+import { useParams } from "next/navigation";
 
-export default function EditForm({ params }) {
+export default function EditForm() {
   const router = useRouter();
   const { user } = useUser();
   const [record, setRecord] = useState([]);
@@ -20,16 +21,16 @@ export default function EditForm({ params }) {
   const [updateTrigger, setUpdateTrigger] = useState();
   const [selectedTheme, setSelectedTheme] = useState("light");
   const [loading, setLoading] = useState(true);
-
+ const params = useParams();
   const handleGoBack = () => router.back();
   const editable = true;
-
+ 
   useEffect(() => {
     if (user) {
       GetFormData();
     }
   }, [user]);
-
+console.log(params)
   useEffect(() => {
     if (updateTrigger) {
       updateJsonFormInDb();
@@ -103,7 +104,7 @@ export default function EditForm({ params }) {
             </svg>
             Share
           </Button>
-          <Link href={`/Form/${record.id}`}>
+          <Link href={`/Form/${params.formId}`}>
             <Button variant="primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

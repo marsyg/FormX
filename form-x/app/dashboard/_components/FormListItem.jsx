@@ -22,7 +22,7 @@ import {
 export default function FormListItem({ jsonData }) {
   console.log(jsonData, "from List Item  hehehe");
   return (
-    <Card className="w-[350px] m-7  ">
+    <Card className="w-[450px] m-7  ">
       <CardHeader>
         <CardTitle>{`${jsonData.formTitle}`}</CardTitle>
         <CardDescription>{`${jsonData.formSubheading}`}</CardDescription>
