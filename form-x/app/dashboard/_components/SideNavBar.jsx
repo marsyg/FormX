@@ -18,12 +18,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
+import Link from "next/link";
 // Menu items.
 const items = [
   {
     title: "MyForms",
-    url: "#",
+    url: "dashboard",
     icon: Home,
   },
   {
@@ -33,7 +33,7 @@ const items = [
   },
   {
     title: "Templates",
-    url: "#",
+    url: "template",
     icon: Calendar,
   },
   {
