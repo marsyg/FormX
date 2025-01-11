@@ -34,7 +34,11 @@ const FormList = () => {
       <ScrollArea>
         <div className="flex  overflow-x-auto flex-row">
           {formList.map((value, index) => (
-            <FormListItem key={index} jsonData={JSON.parse(value.jsonform)} />
+            <FormListItem
+              key={index}
+              id={value.id}
+              jsonData={JSON.parse(value.jsonform)}
+            />
           ))}
         </div>
         <ScrollBar orientation="horizontal"></ScrollBar>

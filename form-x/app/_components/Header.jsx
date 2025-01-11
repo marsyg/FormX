@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const { user, isSignedIn } = useUser();
@@ -13,9 +14,8 @@ const Header = () => {
 
   useEffect(() => {
     console.log(path);
-  }, [path]); // Add `path` as a dependency
+  }, [path]);
 
-  // Early return if "Form" is in the path
   if (path.includes("Form")) {
     return null;
   }
@@ -23,10 +23,22 @@ const Header = () => {
   return (
     <header className="w-full p-6 flex border shadow-sm">
       <div className="flex w-full items-center justify-between">
-        {/* Logo */}
-        <Image src="/logo.svg" width={100} height={100} alt="App Logo" />
+        <motion.div
+          initial={{ scale: 1.5, rotate: 0, opacity: 0 }}
+          animate={{
+            scale: [1.5, 0.5, 1],
+            rotate: [0, 360, 0],
+            opacity: [0, 1, 1],
+          }}
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+          }}
+          className="relative mx-9 w-auto h-auto overflow-hidden"
+        >
+          <Image src="/logo.svg" width={100} height={100} alt="App Logo" />
+        </motion.div>
 
-        {/* User Actions */}
         {isSignedIn ? (
           <div className="flex items-center gap-5">
             <Link href="/dashboard">
