@@ -4,7 +4,7 @@ import db from "@/configs/db";
 import { JsonForms } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { and, eq } from "drizzle-orm";
-import React, { use, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export default function EditForm() {
  const params = useParams();
   const handleGoBack = () => router.back();
   const editable = true;
- 
+  
   useEffect(() => {
     if (user) {
       GetFormData();

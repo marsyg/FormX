@@ -8,13 +8,22 @@ import db from "@/configs/db";
 import FormUi from "@/app/edit-form/_components/FormUI";
 import { useUser } from "@clerk/nextjs";
 import QRCodeGenerator from "../../../qrCodeGenerator";
+import { useRouter } from "next/navigation";
+
 const PreviewForm = () => {
   const editable = false;
   const { user } = useUser();
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState([]);
   const [jsonForm, setJsonForm] = useState("");
+  const [url, setUrl] = useState();
   const params = useParams();
+  const router = useRouter();
+  useEffect(() => {
+    setUrl(`https://form-x-pun2-orcin.vercel.app/share/${params?.formId}`);
+  }, [router.asPath]);
+  useEffect(() => {}, [url]);
+
   useEffect(() => {
     if (params && user) {
       console.log("get form data called");
@@ -35,7 +44,7 @@ const PreviewForm = () => {
     setRecord(result[0]);
     if (!result || result.length === 0) {
       console.warn("No records found for the given query.");
-      setJsonForm(null); // Set to null or handle accordingly
+      setJsonForm(null);
       return;
     }
     console.log(result[0]?.jsonform);
@@ -54,7 +63,8 @@ const PreviewForm = () => {
         jsonForm={jsonForm}
         onFieldUpdate={() => {}}
       ></FormUi>
-      <QRCodeGenerator />
+      <QRCodeGenerator url={url} />
+      <button>Share</button>
     </div>
   );
 };
